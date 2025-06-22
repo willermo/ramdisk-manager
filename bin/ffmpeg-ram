@@ -1,6 +1,32 @@
 #!/bin/bash
+# FFmpeg RAM Disk Wrapper - Optimizes FFmpeg to use RAM disk for temporary files
+# Updated: June 2025
+
+# Create RAM disk directories with subdirectories for different operations
 RAMDISK=${HOME}/.ramdisk/ffmpeg-tmp
-mkdir -p "$RAMDISK"
-chmod 700 "$RAMDISK"
-export TMPDIR="$RAMDISK"
-ffmpeg "$@"
+mkdir -p "$RAMDISK/temp"
+mkdir -p "$RAMDISK/cache"
+mkdir -p "$RAMDISK/frames"
+chmod -R 700 "$RAMDISK"
+
+# Set environment variables
+export TMPDIR="$RAMDISK/temp"
+
+# FFmpeg specific optimizations
+
+# Set FFREPORT to save logs to RAM disk for debugging
+# Format: file=filename:level=verbose
+export FFREPORT="file=$RAMDISK/ffmpeg-report-%p-%t.log:level=32"
+
+# Memory optimization flags for FFmpeg
+# Note: We're not using -y (overwrite) flag by default as it's potentially dangerous
+FFMPEG_OPTS="-hide_banner"
+
+# Add RAM disk-specific options
+FFMPEG_OPTS="$FFMPEG_OPTS -use_wallclock_as_timestamps 1"
+
+# Use RAMdisk for temporary frame extraction
+FFMPEG_OPTS="$FFMPEG_OPTS -frame_drop_threshold 5"
+
+# Run FFmpeg with optimizations
+ffmpeg $FFMPEG_OPTS "$@"

@@ -1,6 +1,39 @@
 #!/bin/bash
+# Inkscape RAM Disk Wrapper - Optimizes Inkscape to use RAM disk for temporary files
+# Updated: June 2025
+
+# Create RAM disk directories
 RAMDISK=${HOME}/.ramdisk/inkscape-tmp
-mkdir -p "$RAMDISK"
-chmod 700 "$RAMDISK"
-export TMPDIR="$RAMDISK"
+mkdir -p "$RAMDISK/temp"
+mkdir -p "$RAMDISK/cache"
+mkdir -p "$RAMDISK/autosave"
+chmod -R 700 "$RAMDISK"
+
+# Set environment variables
+export TMPDIR="$RAMDISK/temp"
+
+# Set GTK cache directory (Inkscape is a GTK application)
+GTK_CACHE_DIR="$RAMDISK/gtk-cache"
+mkdir -p "$GTK_CACHE_DIR"
+export GTK_CACHE_DIR
+
+# Set Inkscape preferences to use RAM disk for autosave
+# Create Inkscape preferences directory if it doesn't exist
+INKSCAPE_PROFILE="${HOME}/.config/inkscape"
+mkdir -p "$INKSCAPE_PROFILE"
+
+# Check if we need to modify preferences
+if [ -f "$INKSCAPE_PROFILE/preferences.xml" ]; then
+    # Only update if autosave path isn't already set to RAM disk
+    if ! grep -q "$RAMDISK/autosave" "$INKSCAPE_PROFILE/preferences.xml"; then
+        # Backup original preferences
+        cp "$INKSCAPE_PROFILE/preferences.xml" "$INKSCAPE_PROFILE/preferences.xml.bak"
+        
+        # Update autosave path - use sed to modify XML properly
+        # If the autosave path tag exists, update it
+        sed -i "s|<group.*id="autosave".*<path>.*</path>|<group id="autosave"><path>$RAMDISK/autosave</path>|g" "$INKSCAPE_PROFILE/preferences.xml" 2>/dev/null || true
+    fi
+fi
+
+# Launch Inkscape
 inkscape "$@"

@@ -20,11 +20,17 @@ This RAM disk management system optimizes system performance by utilizing a port
 #### User Directory Structure
 - **Main Directory**: `~/.ramdisk/` 
 - **Purpose**: Stores user-specific temporary files with proper permissions
+- **Key Structure**:
+  - Only username directories should be directly under `/mnt/ramdisk/` (e.g., `/mnt/ramdisk/username/`)
+  - Each username directory is a symlink to the user's `~/.ramdisk` directory
+  - All application-specific directories live under `~/.ramdisk/` with proper ownership and permissions
 - **Subdirectories**:
   - `tmp`: General temporary files
   - `chrome-profile`: Chrome browser profile
   - `firefox-cache`: Firefox cache
   - `gimp-tmp`, `inkscape-tmp`, `ffmpeg-tmp`: Application-specific temp files
+  - `docker-tmp`: Docker build cache and temporary files
+  - `windsurf-cache`: Windsurf IDE cache
   - `browser-cache`: Additional browser cache
   - `system-cache`: System-level cache files
 
@@ -49,10 +55,12 @@ This RAM disk management system optimizes system performance by utilizing a port
   - Optimizes memory and disk cache settings
 
 #### Other Application Wrappers
-- `gimp-ram`: GIMP with temporary files in RAM
-- `inkscape-ram`: Inkscape with temporary files in RAM
-- `ffmpeg-ram`: FFmpeg with temporary directory in RAM
-- All follow similar pattern of redirecting temp files to RAM
+- `gimp-ram`: GIMP with temporary files, swap files, and GTK cache in RAM
+- `inkscape-ram`: Inkscape with temporary files, autosave, and GTK cache in RAM
+- `ffmpeg-ram`: FFmpeg with optimized temporary directories and performance flags
+- `docker-ram`: Docker with build cache in RAM for faster container builds
+- `windsurf-ram-setup.sh`: Setup script for Windsurf IDE RAM disk integration
+- All follow similar pattern of redirecting temporary files, caches, and work files to RAM
 
 #### Environment Setup (`set-tmpdir-env.sh`)
 - **Purpose**: Sets TMPDIR for shell sessions
@@ -101,10 +109,11 @@ This RAM disk management system optimizes system performance by utilizing a port
 - **Purpose**: Allow launching RAM disk versions from dock/menu
 - **Location**: `~/.local/share/applications/*.desktop`
 - **Files**:
-  - `google-chrome-ram.desktop`
-  - `firefox-ram-note.desktop`
-  - `gimp-ram.desktop`
-  - `inkscape-ram.desktop`
+  - `google-chrome-ram.desktop`: Chrome with RAM disk optimizations
+  - `firefox-ram-note.desktop`: Firefox with RAM disk optimizations
+  - `gimp-ram.desktop`: GIMP with RAM disk optimizations
+  - `inkscape-ram.desktop`: Inkscape with RAM disk optimizations
+  - `windsurf-ram.desktop`: Windsurf IDE with RAM disk optimizations
 
 #### Autostart Entries
 - **Purpose**: Start RAM disk services at login

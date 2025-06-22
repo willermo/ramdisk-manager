@@ -1,6 +1,24 @@
 #!/bin/bash
+# GIMP RAM Disk Wrapper - Optimizes GIMP to use RAM disk for temporary files
+# Updated: June 2025
+
+# Create RAM disk directories
 RAMDISK=${HOME}/.ramdisk/gimp-tmp
-mkdir -p "$RAMDISK"
-chmod 700 "$RAMDISK"
-export TMPDIR="$RAMDISK"
-gimp "$@"
+mkdir -p "$RAMDISK/temp"
+mkdir -p "$RAMDISK/swap"
+chmod -R 700 "$RAMDISK"
+
+# Set environment variables for GIMP
+export TMPDIR="$RAMDISK/temp"
+
+# Set GIMP specific environment variables
+export GIMP_SWAP_PATH="$RAMDISK/swap"
+
+# Set GTK cache directory if using GIMP 2.10+
+GTK_CACHE_DIR="$RAMDISK/gtk-cache"
+mkdir -p "$GTK_CACHE_DIR"
+export GTK_CACHE_DIR
+
+# Launch GIMP with optimized memory settings
+# --swap-path is deprecated in newer versions but included for compatibility with older versions
+gimp --swap-path="$RAMDISK/swap" "$@"

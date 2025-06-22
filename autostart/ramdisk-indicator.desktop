@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=RAM Disk Indicator
+Comment=System tray indicator showing RAM disk usage
+Exec=/home/davide/bin/ramdisk-indicator.py
+Terminal=false
+Type=Application
+Categories=System;
+StartupNotify=false
+X-GNOME-Autostart-enabled=true

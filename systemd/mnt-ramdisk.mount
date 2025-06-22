@@ -1,0 +1,13 @@
+[Unit]
+Description=RAM Disk at /mnt/ramdisk
+DefaultDependencies=no
+After=local-fs.target
+
+[Mount]
+What=tmpfs
+Where=/mnt/ramdisk
+Type=tmpfs
+Options=size=16G,noatime,mode=1777
+
+[Install]
+WantedBy=multi-user.target

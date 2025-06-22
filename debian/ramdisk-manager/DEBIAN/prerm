@@ -1,0 +1,11 @@
+#!/bin/bash
+# Disable the systemd mount unit
+systemctl stop mnt-ramdisk.mount || true
+systemctl disable mnt-ramdisk.mount || true
+
+echo "RAM Disk Manager system components removed."
+echo "Note: User-specific files in ~/bin and ~/.ramdisk remain untouched."
+echo "To completely remove, users should manually delete:"
+echo "  - ~/bin/ram* scripts"
+echo "  - ~/.ramdisk directory"
+echo "  - RAM disk entries in ~/.bashrc"

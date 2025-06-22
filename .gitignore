@@ -1,0 +1,22 @@
+# Ignore build artifacts
+*.deb
+
+# Ignore temporary files
+*~
+*.swp
+.DS_Store
+
+# Ignore Python cache
+__pycache__/
+*.py[cod]
+
+# Ignore build directories
+/debian/ramdisk-manager/usr/bin/*
+/debian/ramdisk-manager/usr/share/ramdisk-manager/bin/*
+/debian/ramdisk-manager/usr/share/ramdisk-manager/desktop/*
+/debian/ramdisk-manager/usr/share/ramdisk-manager/autostart/*
+/debian/ramdisk-manager/etc/systemd/system/*
+
+# Ignore backup files
+*.bak
+*.backup

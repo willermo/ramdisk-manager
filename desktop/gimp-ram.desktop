@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=GIMP (RAM Disk)
+GenericName=Image Editor
+Comment=Create images and edit photographs using RAM disk for temporary files
+Exec=/home/davide/bin/gimp-ram %U
+Icon=gimp
+Terminal=false
+Type=Application
+Categories=Graphics;2DGraphics;RasterGraphics;GTK;
+StartupNotify=true
+MimeType=image/bmp;image/g3fax;image/gif;image/jpeg;image/jpg;image/pjpeg;image/png;image/tiff;image/webp;image/x-bmp;image/x-compressed-xcf;image/x-fits;image/x-gimp-gbr;image/x-gimp-gih;image/x-gimp-pat;image/x-icon;image/x-pcx;image/x-portable-anymap;image/x-portable-bitmap;image/x-portable-graymap;image/x-portable-pixmap;image/x-psd;image/x-sgi;image/x-sun-raster;image/x-tga;image/x-xcf;image/x-xwindowdump;
+Keywords=GIMP;graphic;design;illustration;painting;RAM;

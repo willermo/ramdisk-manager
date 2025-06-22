@@ -1,0 +1,6 @@
+#!/bin/bash
+RAMDISK=${HOME}/.ramdisk/gimp-tmp
+mkdir -p "$RAMDISK"
+chmod 700 "$RAMDISK"
+export TMPDIR="$RAMDISK"
+gimp "$@"

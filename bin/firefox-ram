@@ -1,0 +1,56 @@
+#!/bin/bash
+# Firefox RAM disk wrapper with performance optimizations
+# Note: Firefox requires manual configuration via about:config
+
+# Create necessary RAM directories
+RAM_CACHE=${HOME}/.ramdisk/firefox-cache
+RAM_TMP=${HOME}/.ramdisk/firefox-tmp
+mkdir -p "$RAM_CACHE" "$RAM_TMP"
+chmod 700 "$RAM_CACHE" "$RAM_TMP"
+
+# Set temporary directory for Firefox
+export TMPDIR="$RAM_TMP"
+
+# Create user.js with optimized settings if it doesn't exist
+PROFILE_DIRS=("$HOME/.mozilla/firefox")
+
+for PROFILE_DIR in "${PROFILE_DIRS[@]}"; do
+  if [ -d "$PROFILE_DIR" ]; then
+    # Find default profile directory (ends with .default or .default-release)
+    DEFAULT_PROFILE=$(find "$PROFILE_DIR" -maxdepth 1 -type d -name "*.default*" | head -n 1)
+    
+    if [ -n "$DEFAULT_PROFILE" ]; then
+      echo "Found Firefox profile at: $DEFAULT_PROFILE"
+      
+      # Create/update user.js with RAM disk settings
+      cat > "$DEFAULT_PROFILE/user.js" << EOL
+// RAM disk optimization settings for Firefox
+// These settings will be applied on browser startup
+
+// Set disk cache to RAM disk
+user_pref("browser.cache.disk.parent_directory", "${RAM_CACHE}");
+
+// Enable memory cache and optimize size (64MB)
+user_pref("browser.cache.memory.enable", true);
+user_pref("browser.cache.memory.capacity", 65536);
+
+// Disable disk cache in favor of memory cache
+user_pref("browser.cache.disk.enable", false);
+user_pref("browser.cache.disk.smart_size.enabled", false);
+
+// Optimize session history
+user_pref("browser.sessionhistory.max_entries", 15);
+
+// Optimize RAM usage for tabs
+user_pref("browser.sessionstore.interval", 60000);
+user_pref("browser.tabs.unloadOnLowMemory", true);
+EOL
+      echo "Firefox RAM optimization settings applied to $DEFAULT_PROFILE/user.js"
+    else
+      echo "Could not find default Firefox profile. Please launch Firefox at least once." >&2
+    fi
+  fi
+done
+
+# Launch Firefox with some performance flags
+firefox "$@"

@@ -1,0 +1,12 @@
+Package: ramdisk-manager
+Version: 1.0.0
+Section: utils
+Priority: optional
+Architecture: all
+Depends: python3-gi, gir1.2-appindicator3-0.1, bash
+Maintainer: Davide Oriani <davide.oriani@ilvid.eu>
+Description: RAM Disk Management System
+ Optimizes system performance by using RAM for temporary files,
+ browser profiles, and application caches. Provides significant
+ speed improvements for I/O intensive operations while protecting
+ SSDs/HDDs from excessive write operations.

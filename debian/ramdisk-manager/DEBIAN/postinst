@@ -1,0 +1,45 @@
+#!/bin/bash
+# Enable the systemd mount unit
+systemctl daemon-reload
+systemctl enable mnt-ramdisk.mount
+systemctl start mnt-ramdisk.mount
+
+# Create a global setup helper script
+cat > /usr/bin/ramdisk-manager-setup <<EOL
+#!/bin/bash
+# Copy user-specific files
+mkdir -p \$HOME/bin
+cp /usr/share/ramdisk-manager/bin/* \$HOME/bin/
+chmod +x \$HOME/bin/chrome-ram \$HOME/bin/firefox-ram \$HOME/bin/gimp-ram \$HOME/bin/inkscape-ram \$HOME/bin/ffmpeg-ram \$HOME/bin/set-tmpdir-env.sh \$HOME/bin/ramdisk-setup.sh \$HOME/bin/ramdisk-status.sh \$HOME/bin/ramdisk-cleanup.sh \$HOME/bin/ramdisk-benchmark.sh \$HOME/bin/ramdisk-indicator.py \$HOME/bin/setup-ramdisk-cron.sh
+
+# Add to PATH if not already there
+if [[ ":\$PATH:" != *":\$HOME/bin:"* ]]; then
+    echo 'export PATH="\$HOME/bin:\$PATH"' >> \$HOME/.bashrc
+fi
+
+# Set environment configuration
+grep -q "source ~/bin/set-tmpdir-env.sh" \$HOME/.bashrc || echo -e "# Use RAM disk for temporary files\nsource ~/bin/set-tmpdir-env.sh" >> \$HOME/.bashrc
+
+# Create desktop launchers
+mkdir -p \$HOME/.local/share/applications
+cp /usr/share/ramdisk-manager/desktop/* \$HOME/.local/share/applications/
+
+# Setup autostart entries
+mkdir -p \$HOME/.config/autostart
+cp /usr/share/ramdisk-manager/autostart/* \$HOME/.config/autostart/
+
+# Setup cron job
+\$HOME/bin/setup-ramdisk-cron.sh
+
+# Initialize RAM disk
+\$HOME/bin/ramdisk-setup.sh
+
+echo "RAM Disk Management System set up successfully for user \$(whoami)"
+EOL
+
+chmod +x /usr/bin/ramdisk-manager-setup
+
+echo
+echo "RAM Disk Manager installed. System components are ready."
+echo "Each user should run 'ramdisk-manager-setup' to complete their personal setup."
+echo

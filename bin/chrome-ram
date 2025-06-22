@@ -1,0 +1,22 @@
+#!/bin/bash
+# Chrome RAM disk wrapper with performance optimizations
+
+# Configure RAM disk path
+RAMDISK=${HOME}/.ramdisk/chrome-profile
+mkdir -p "$RAMDISK"
+chmod 700 "$RAMDISK"
+
+# Performance flags
+FLAGS=(
+  "--user-data-dir=$RAMDISK"
+  "--disk-cache-dir=$RAMDISK/cache"
+  "--disk-cache-size=1073741824"  # 1GB cache size
+  "--media-cache-size=1073741824" # 1GB media cache
+  "--process-per-site"            # Reduce memory usage
+  "--enable-features=ParallelDownloading"
+  "--enable-gpu-rasterization"
+  "--enable-zero-copy"
+)
+
+# Launch Chrome with optimizations
+google-chrome "${FLAGS[@]}" "$@"

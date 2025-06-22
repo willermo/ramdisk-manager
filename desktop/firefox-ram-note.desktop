@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Firefox (RAM Disk Setup)
+GenericName=Web Browser with RAM cache
+Comment=Firefox with RAM cache (requires manual about:config setup)
+Exec=firefox %u
+Icon=firefox
+Terminal=false
+Type=Application
+Categories=Network;WebBrowser;
+StartupNotify=true
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;x-scheme-handler/http;x-scheme-handler/https;
+Keywords=web;browser;internet;RAM;

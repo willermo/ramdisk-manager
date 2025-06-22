@@ -13,9 +13,10 @@ FLAGS=(
   "--disk-cache-size=1073741824"  # 1GB cache size
   "--media-cache-size=1073741824" # 1GB media cache
   "--process-per-site"            # Reduce memory usage
-  "--enable-features=ParallelDownloading"
+  "--enable-features=ParallelDownloading,PartitionAlloc"
   "--enable-gpu-rasterization"
   "--enable-zero-copy"
+  "--memory-model=high"          # Higher memory allocation for better performance
 )
 
 # Launch Chrome with optimizations

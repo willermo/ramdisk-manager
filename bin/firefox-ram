@@ -30,9 +30,9 @@ for PROFILE_DIR in "${PROFILE_DIRS[@]}"; do
 // Set disk cache to RAM disk
 user_pref("browser.cache.disk.parent_directory", "${RAM_CACHE}");
 
-// Enable memory cache and optimize size (64MB)
+// Enable memory cache and optimize size (1GB)
 user_pref("browser.cache.memory.enable", true);
-user_pref("browser.cache.memory.capacity", 65536);
+user_pref("browser.cache.memory.capacity", 1048576);
 
 // Disable disk cache in favor of memory cache
 user_pref("browser.cache.disk.enable", false);
@@ -40,6 +40,7 @@ user_pref("browser.cache.disk.smart_size.enabled", false);
 
 // Optimize session history
 user_pref("browser.sessionhistory.max_entries", 15);
+user_pref("browser.sessionhistory.max_total_viewers", 15);
 
 // Optimize RAM usage for tabs
 user_pref("browser.sessionstore.interval", 60000);

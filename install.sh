@@ -74,7 +74,7 @@ cp "$SCRIPT_DIR/bin/"* ~/bin/
 chmod +x ~/bin/chrome-ram ~/bin/firefox-ram ~/bin/gimp-ram ~/bin/inkscape-ram ~/bin/ffmpeg-ram \
        ~/bin/set-tmpdir-env.sh ~/bin/ramdisk-setup.sh ~/bin/ramdisk-status.sh \
        ~/bin/ramdisk-cleanup.sh ~/bin/ramdisk-benchmark.sh ~/bin/ramdisk-indicator.py \
-       ~/bin/setup-ramdisk-cron.sh
+       ~/bin/setup-ramdisk-cron.sh ~/bin/docker-ram ~/bin/windsurf-ram-setup.sh
 
 echo -e "${GREEN}RAM disk scripts installed to ~/bin/${RESET}"
 echo

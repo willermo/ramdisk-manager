@@ -1,0 +1,19 @@
+[Desktop Entry]
+Name=Windsurf IDE (RAM)
+Comment=Code Editing. Redefined. With RAM disk optimization.
+GenericName=Text Editor
+Exec=windsurf-ram %F
+Icon=windsurf
+Type=Application
+StartupNotify=true
+StartupWMClass=Windsurf
+Categories=TextEditor;Development;IDE;
+MimeType=text/plain;inode/directory;application/x-windsurf-workspace;
+Keywords=windsurf;vscode;code;editor;development;programming;ram;optimization;
+Actions=new-empty-window;
+X-GNOME-UsesNotifications=true
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Exec=windsurf-ram --new-window %F
+Icon=windsurf

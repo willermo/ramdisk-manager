@@ -1,0 +1,25 @@
+#!/bin/bash
+# docker-ram - Use RAM for Docker build cache
+# Optimizes Docker builds by storing temporary files and build cache in RAM
+
+# Create RAM disk directory for Docker
+DOCKER_RAMDISK=${HOME}/.ramdisk/docker-tmp
+mkdir -p "$DOCKER_RAMDISK"/{cache,tmp,config}
+chmod 700 "$DOCKER_RAMDISK"
+
+# Set Docker environment variables to use RAM disk
+export DOCKER_CONFIG="$DOCKER_RAMDISK/config"
+export BUILDKIT_PROGRESS=plain
+export DOCKER_BUILDKIT=1
+export TMPDIR="$DOCKER_RAMDISK/tmp"
+
+# Execute docker command with optimized settings
+# Usage: docker-ram build ..., docker-ram compose ...
+if [ $# -eq 0 ]; then
+  echo "Usage: docker-ram COMMAND [OPTIONS]"
+  echo "Runs docker commands with RAM disk optimizations"
+  exit 1
+fi
+
+# Pass all arguments to docker
+docker --config "$DOCKER_RAMDISK/config" "$@"

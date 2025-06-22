@@ -10,7 +10,7 @@ cat > /usr/bin/ramdisk-manager-setup <<EOL
 # Copy user-specific files
 mkdir -p \$HOME/bin
 cp /usr/share/ramdisk-manager/bin/* \$HOME/bin/
-chmod +x \$HOME/bin/chrome-ram \$HOME/bin/firefox-ram \$HOME/bin/gimp-ram \$HOME/bin/inkscape-ram \$HOME/bin/ffmpeg-ram \$HOME/bin/set-tmpdir-env.sh \$HOME/bin/ramdisk-setup.sh \$HOME/bin/ramdisk-status.sh \$HOME/bin/ramdisk-cleanup.sh \$HOME/bin/ramdisk-benchmark.sh \$HOME/bin/ramdisk-indicator.py \$HOME/bin/setup-ramdisk-cron.sh
+chmod +x \$HOME/bin/chrome-ram \$HOME/bin/firefox-ram \$HOME/bin/gimp-ram \$HOME/bin/inkscape-ram \$HOME/bin/ffmpeg-ram \$HOME/bin/set-tmpdir-env.sh \$HOME/bin/ramdisk-setup.sh \$HOME/bin/ramdisk-status.sh \$HOME/bin/ramdisk-cleanup.sh \$HOME/bin/ramdisk-benchmark.sh \$HOME/bin/ramdisk-indicator.py \$HOME/bin/setup-ramdisk-cron.sh \$HOME/bin/docker-ram \$HOME/bin/windsurf-ram-setup.sh
 
 # Add to PATH if not already there
 if [[ ":\$PATH:" != *":\$HOME/bin:"* ]]; then

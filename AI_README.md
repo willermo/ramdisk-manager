@@ -27,6 +27,7 @@ This project creates a comprehensive RAM disk management system for Ubuntu, focu
 2. **User-Specific Directory Structure:**
    - User folders in `~/.ramdisk/` with 700 permissions for privacy
    - Symlinks from `/mnt/ramdisk/username/` to `~/.ramdisk/`
+   - **IMPORTANT:** The only directories directly under `/mnt/ramdisk/` should be username folders; application directories should ONLY exist under `~/.ramdisk/`
    - Includes specific directories for browsers, applications, and tmp files
 
 3. **Application Wrappers:**
@@ -35,6 +36,8 @@ This project creates a comprehensive RAM disk management system for Ubuntu, focu
    - `gimp-ram`: GIMP with temporary files in RAM
    - `inkscape-ram`: Inkscape with temporary files in RAM
    - `ffmpeg-ram`: FFmpeg with temporary files in RAM
+   - `docker-ram`: Docker with build cache in RAM
+   - `windsurf-ram-setup.sh`: Windsurf IDE with cache in RAM
 
 4. **Management Tools:**
    - `ramdisk-setup.sh`: Initializes directory structure and permissions
